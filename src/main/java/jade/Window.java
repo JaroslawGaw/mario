@@ -4,6 +4,7 @@ import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
 
+import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryUtil.NULL;
@@ -18,8 +19,8 @@ public class Window {
     private static Window window = null;
 
     private Window() {
-        this.width = 1920;
-        this.height = 1080;
+        this.width = 860;
+        this.height = 640;
         this.title = "Mario";
     }
 
@@ -32,8 +33,16 @@ public class Window {
 
     public void run() {
         System.out.println("Hello" + Version.getVersion() + "!");
+
         init();
         loop();
+
+        //Free the memory
+        glfwFreeCallbacks(glfwWindow);
+        glfwDestroyWindow(glfwWindow);
+
+        //Terminate GLFW and the free the error callbacks
+        glfwSetErrorCallback(null).free();
     }
 
     public void init() {
@@ -76,11 +85,11 @@ public class Window {
     }
 
     public void loop() {
-        while (!glfwWindowShouldClose(glfwWindow)){
+        while (!glfwWindowShouldClose(glfwWindow)) {
             //Poll events
             glfwPollEvents();
 
-            glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+            glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT);
 
             glfwSwapBuffers(glfwWindow);
