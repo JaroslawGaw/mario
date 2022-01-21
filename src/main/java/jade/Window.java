@@ -32,7 +32,7 @@ public class Window {
     }
 
     public void run() {
-        System.out.println("Hello" + Version.getVersion() + "!");
+        System.out.println("Hello " + Version.getVersion() + "!");
 
         init();
         loop();
